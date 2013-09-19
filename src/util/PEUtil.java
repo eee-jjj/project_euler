@@ -26,6 +26,12 @@ public class PEUtil {
 		}
 		return true;
 	}
+	public static boolean isPerfectSquare(long n){
+		if(n<0)
+			return false;
+		long test = (long)(Math.sqrt(n)+0.5);
+		return test*test == n;
+	}
 	/**
 	 * @param args
 	 */
