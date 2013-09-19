@@ -2,6 +2,8 @@ package level6;
 
 import java.util.*;
 
+import util.PEUtil;
+
 public class P137 {
 
 	/**
@@ -11,14 +13,11 @@ public class P137 {
 		ArrayList<Long> res = new ArrayList<Long>();
 		for(long a=1;;a++){
 			long aa = 5*a*a+2*a+1;
-			double sqrtaa = Math.sqrt(aa);
-			if(sqrtaa == (long)sqrtaa){
-				if((long)sqrtaa==(aa*1.0/(long)sqrtaa)){
-					System.out.println(a);
-					res.add(a);
-					if(res.size()==15)
-						break;
-				}
+			if(PEUtil.isPerfectSquare(aa)){
+				System.out.println(a);
+				res.add(a);
+				if(res.size()==15)
+					break;
 			}
 		}
 	}
