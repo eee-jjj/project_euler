@@ -19,7 +19,7 @@ public class PEUtil {
 	}
 	public static boolean isPrime(long x, ArrayList<Integer> primes){
 		for(Integer prime : primes){
-			if(prime>=x)
+			if(prime>Math.sqrt(x))
 				return true;
 			if(x % prime == 0)
 				return false;
@@ -46,7 +46,7 @@ public class PEUtil {
 					map[j].put(i, 1);
 				}
 				int freq = 2;
-				for(int j=i*i;j<primes.length;j*=i){
+				for(int j=i*i;j<primes.length && j<primes.length;j*=i){
 					for(int k=j;k<primes.length && k>0;k+=j){
 						map[k].put(i, freq);
 					}
@@ -74,7 +74,7 @@ public class PEUtil {
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		numOfFactors(100);
+		//System.out.println(Arrays.deepToString(factorize(10000)));
 	}
 
 }
