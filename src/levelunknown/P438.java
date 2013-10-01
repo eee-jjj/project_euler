@@ -7,8 +7,7 @@ public class P438 {
 	static ArrayList<int[][]> histCo = new ArrayList<int[][]>();
 	static int n = 4;
 	static int[][] stdCo = new int[n+1][n+1];
-	static int[] kco1 = new int[n];
-	static int[] kco2 = new int[n];
+	static int[][] kco = new int[n+1][n];;
 	/**
 	 * @param args
 	 */
@@ -26,13 +25,11 @@ public class P438 {
 		stdCo = deepCopy(coeff);
 		
 		//slope co
-
-		for(int i=1;i<=n;i++){
-			kco1[i-1] = i;
-		}
-		for(int i=0;i<n;i++){
-			kco2[i] = (i+1)*(int)Math.pow(n+1, i);
-		}
+		for(int i=1;i<=n+1;i++){
+			for(int j=0;j<n;j++){
+				kco[i-1][j] = (j+1)*(int)Math.pow(i, j);
+			}
+		}		
 		
 		//solve the linear system
 		histCo.add(deepCopy(coeff));
@@ -107,25 +104,7 @@ public class P438 {
 		else
 			return true;
 	}
-	public static boolean _check(ArrayList<Integer> s){
-		int sum1 = 0;
-		for(int i=0;i<n-1;i++){
-			sum1 += s.get(i) * kco1[n-2-i];
-		}
-		sum1 += kco1[n-1];
-		if(sum1>0)
-			return false;
-		
-		int sum2 = 0;
-		for(int i=0;i<n-1;i++){
-			sum2 += s.get(i) * kco2[n-2-i];
-		}
-		sum2 += kco2[n-1];
-		if(sum2<0)
-			return false;
-				
-		return true;
-	}
+	
 	public static boolean __check(ArrayList<Integer> s){
 		int len = stdCo[0].length;
 		for(int i=0;i<stdCo.length;i++){
@@ -134,12 +113,33 @@ public class P438 {
 				sum += stdCo[i][len-2-j]*s.get(j);
 			}
 			sum += stdCo[i][len-1];
+			if(checkK(s, 1)==false)
+				return false;
 			if(sum==0){
-				if(i+1==5){
+				if(i+1==n+1){
 					return false;
 				}
-				System.out.println(s + ": " + (i+1));
+				if(checkK(s, i+1)==false)
+					return false;
 			}
+		}
+		return true;
+	}
+	
+	public static boolean checkK(ArrayList<Integer> s, int ii){
+		int sum = 0;
+		for(int i=0;i<s.size()-1;i++){
+			sum += kco[ii-1][kco[0].length-2-i]*s.get(i);
+		}
+		sum+=kco[ii-1][kco[0].length-1];
+		
+		if(ii % 2 == 1){
+			if(sum>=0)
+				return false;
+		}
+		else{
+			if(sum<=0)
+				return false;
 		}
 		return true;
 	}
