@@ -5,9 +5,11 @@ import java.util.*;
 public class P438 {
 	static ArrayList<ArrayList<Integer>> sol = new ArrayList<ArrayList<Integer>>();
 	static ArrayList<int[][]> histCo = new ArrayList<int[][]>();
-	static int n = 4;
+	static int n = 7;
 	static int[][] stdCo = new int[n+1][n+1];
 	static int[][] kco = new int[n+1][n];;
+	static long sum = 0;
+	static long cnt = 0;
 	/**
 	 * @param args
 	 */
@@ -44,25 +46,34 @@ public class P438 {
 			coeff = newCo;
 		}
 		
-		System.out.println(histCo);
+		//System.out.println(histCo);
 		
 		go(new ArrayList<Integer>());
 		
-		System.out.println(sol);
-		System.out.println(sol.size());
+		//System.out.println(sol);
+		//System.out.println(sol.size());
 		
-		int sum = 0;
-		for(ArrayList<Integer> s:sol){
-			for(Integer i:s)
-				sum+=Math.abs(i);
-		}
 		System.out.println(sum);
+		System.out.println(cnt);
 	}
 	
 	public static void go(ArrayList<Integer> solved){
+		if(solved.size()==2){
+			System.out.println(solved);
+		}
+		if(solved.size()==n-1){
+			for(int i=1;i<=n;i++){
+				if(checkK(solved, 1)==false)
+					return;
+			}
+		}
 		if(solved.size()==n){
 			if(__check(solved)){
-				sol.add(solved);
+				//sol.add(solved);
+				//System.out.println(solved);
+				cnt++;
+				for(Integer i:solved)
+					sum+=Math.abs(i);
 			}
 			return;
 		}
@@ -93,17 +104,6 @@ public class P438 {
 			go(s);
 		}
 	}
-	public static boolean check(ArrayList<Integer> s){
-		int sum = 0;
-		int[] c = {125,25,5,1,625};
-		for(int i=0;i<4;i++){
-			sum+=s.get(i)*c[i];
-		}
-		if(sum+625<=0)
-			return false;
-		else
-			return true;
-	}
 	
 	public static boolean __check(ArrayList<Integer> s){
 		int len = stdCo[0].length;
@@ -128,17 +128,17 @@ public class P438 {
 	
 	public static boolean checkK(ArrayList<Integer> s, int ii){
 		int sum = 0;
-		for(int i=0;i<s.size()-1;i++){
+		for(int i=0;i<n-1;i++){
 			sum += kco[ii-1][kco[0].length-2-i]*s.get(i);
 		}
 		sum+=kco[ii-1][kco[0].length-1];
 		
 		if(ii % 2 == 1){
-			if(sum>=0)
+			if(sum<=0)
 				return false;
 		}
 		else{
-			if(sum<=0)
+			if(sum>=0)
 				return false;
 		}
 		return true;
