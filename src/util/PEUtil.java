@@ -46,8 +46,8 @@ public class PEUtil {
 					map[j].put(i, 1);
 				}
 				int freq = 2;
-				for(int j=i*i;j<primes.length && j<primes.length;j*=i){
-					for(int k=j;k<primes.length && k>0;k+=j){
+				for(long j=i*i;j<primes.length;j*=i){
+					for(int k=(int)j;k<primes.length && k>0;k+=j){
 						map[k].put(i, freq);
 					}
 					freq++;
