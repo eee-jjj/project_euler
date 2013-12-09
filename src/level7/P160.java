@@ -1,15 +1,29 @@
 package level7;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+
 public class P160 {
     
     /**
      * @param args
      */
     public static void main(String[] args) {
-        long p = 1;
+        long cap = 10000;
+    	long p = 1;
         long cnt2 = 0;
         long cnt5 = 0;
-        for (long i = 1; i <= 100 ; i++) {
+        long test = 1;
+        for (long i = 1; i <= cap ; i++) {
+//        	if(i % 100000000 == 0){
+//        		System.out.println(i);
+//        	}
+//        	test *= i;
+//        	while(test%10==0){
+//        		test/=10;
+//        	}
+//        	test %= 100000;
+        	
             long ii=i;
             if(ii%10==0){
                 while(ii%10==0){
@@ -22,7 +36,6 @@ public class P160 {
                     cnt++;
                     ii/=2;
                 }
-                p*=ii;
                 cnt2 += cnt;
             }            
             if (ii % 5 == 0) {
@@ -31,10 +44,9 @@ public class P160 {
                     cnt++;
                     ii/=5;
                 }
-                p*=ii;
                 cnt5 += cnt;
             }
-            if(i%2!=0 && i%5!=0){
+            if(ii%2!=0 && ii%5!=0){
                 p*=ii;
             }
             p %= 100000;
@@ -44,7 +56,9 @@ public class P160 {
             p *= 2;
             p %= 100000;
         }
-        System.out.println(p);
+   
+        System.out.println("test: "+test);
+        System.out.println("my  : "+p);        
     }
     
 }
