@@ -16,15 +16,7 @@ public class P183 {
             int low = (int) Math.floor(N / Math.E);
             int high = (int) Math.ceil(N / Math.E);
             
-            double lowValue = Math.pow(N * 1.0 / low, low);
-            double highValue = Math.pow(N * 1.0 / high, high);
-            
-            int v = 0;
-            if (lowValue > highValue) {
-                v = low;
-            } else {
-                v = high;
-            }
+            int v = (int)Math.round(N / Math.E);
             
             HashMap<Integer, Integer> numF = getFactor(N);
             HashMap<Integer, Integer> denF = getFactor(v);
