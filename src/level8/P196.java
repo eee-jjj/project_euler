@@ -7,6 +7,7 @@ import util.PEUtil;
 public class P196 {
 	
 	static ArrayList<Integer> primes = PEUtil.generatePrimes(10000000);
+	static ArrayList<Integer> ps;
 	
 	public static void main(String[] args) {
 		long cap1 = 5678027;
@@ -15,6 +16,7 @@ public class P196 {
 		System.out.println(sum);
 	}
 	static long cal(long cap){
+		ps = PEUtil.generatePrimes(10000000);
 		long start = 0;
 		for (long i = 1; i < cap; i++) {
 			start += i;
@@ -30,9 +32,6 @@ public class P196 {
 		}
 		boolean[] sieve = new boolean[(int)cap];
 		for(long i=start;i<=end;i+=2){
-			if(i % 100000 == 1){
-				System.out.println(i);
-			}
 			
 			if(sieve[(int)(i-start)]){
 				continue;
@@ -72,7 +71,7 @@ public class P196 {
 					}
 				}
 			} else {
-				for(long j=start;j<=end;j+=p){
+				for(long j=i;j<=end;j+=p){
 					sieve[(int)(j-start)] = true;
 				}
 			}
@@ -93,8 +92,9 @@ public class P196 {
 	static int isP(long n){
 		int max = (int)Math.sqrt(n);
 		for(int i=0;i<primes.size() && primes.get(i)<=max;i++){
-			if(n % primes.get(i) == 0)
+			if(n % primes.get(i) == 0){
 				return primes.get(i);
+			}
 		}
 		return 1;
 	}
